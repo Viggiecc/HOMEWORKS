@@ -47,63 +47,124 @@
 
 		section {
 			float: left;
-			width: 600px;
+			width: 670px;
 			height: 700px;
-			margin: 50px 0 0 120px;
+			margin: 50px 0 0 10%;
 			border: 1px solid #cccccc;
 		}
 
+		section picture img {
+			width: 620px;
+			top: 20px;
+			left: 25px;
+			position: relative;
+		}
+
+		section p {
+			font: 13px|13px Arial, Helvetica, sans-serif;
+			top: 15px;
+			left: 25px;
+			position: relative;
+		}
+
+		section h1 {
+			font: 21px|21px Arial, Helvetica, sans-serif;
+			left: 25px;
+			position: relative;
+		}
 		aside {
 			float: right;
 			width: 300px;
 			height: 700px;
-			margin: 50px 120px;
+			margin: 50px 10% 50px 20px;
 			border: 1px solid #cccccc;
 		}
 
+		aside h4 {
+			text-align: center;
+			border-bottom: 1px solid #cccccc;
+			padding-bottom: 20px;
+		}
+
+		aside ul {
+			padding-left: 0;
+		}
+
+		aside li {
+			list-style: none;
+			font-size: 16px;
+			font-family: Arial, Helvetica, sans-serif;
+			height: 100px;
+			margin: 0px 30px 10px 30px;
+			border-bottom: 1px solid #cccccc;
+		}
+
+		aside a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		aside span {
+			font-size: 16px;
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 50px 20px;
+			top: 6px;
+			position: relative;
+		}
+
+		aside img {
+			width: 30px;
+			height: 30px;
+			float: left;
+			margin-left: 30px;
+		}
+
 		footer {
-			font: bold 16px/16px Arial, Helvetica, sans-serif;
+			font: bold 13px/13px Arial, Helvetica, sans-serif;
 			height: 30px;
 			background-color: #000000;
 			clear: both;
 			color: #ffffff;
 			text-align: center;
-			padding-top:10px;
+			padding-top:12px;
 		}
+
 	</style>
 </head>
 <body>
-<div class="container">
-	<header>
-		<p>Engineer</p>
-	</header>
-	<nav>
-		<ul>
-			<li style="background-color: #eeeeee; opacity: 0.8">
-				<span>Front End</span>
-			</li>
-			<li>
-				<span>Back End</span>
-			</li>
-			<li>
-				<span>Database</span>
-			</li>
-			<li>
-				<span>Full-Stack</span>
-			</li>
-		</ul>
-	</nav>
-	<section>
-	</section>
-	<article>
-	</article>
-	<aside>
-		<div>
-
-		</div>	
-	</aside>	
-	<footer>Copyright © 2016 engineers.com</footer>
-</div>
+	<div class="container">
+		<header>
+			<p>Engineer</p>
+		</header>
+		<nav>
+			<ul>
+				<li style="background-color: #eeeeee; opacity: 0.8"><span>Front End</span></li>
+				<li><span>Back End</span></li>
+				<li><span>Database</span></li>
+				<li><span>Full-Stack</span></li>
+			</ul>
+		</nav>
+		<section>
+			<picture>
+				<img src="./pictures/picture1.png">
+			</picture>
+			<p>JavaScript</p>
+			<h1>Share Knowledge For The Open Web</h1>
+		</section>
+	
+		<aside>
+			<h4>MOST POPULAR TECHNOLOGY</h4>
+			<ul>
+				<li>HTML5</li>
+				<li>CSS3</li>
+				<li>BootStrap</li>
+				<li>JavaScript</li>
+				<li>AngularJS</li>
+			</ul>
+			<a href="http://www.w3schools.com"><img src="./icon/Skip_Next-512.png"><span>More Technologies</span></a>
+		</aside>	
+		<footer>Copyright © 2016 engineers.com</footer>
+	</div>
 	
 </body>
 </html>
