@@ -1,0 +1,23 @@
+.sideBar {
+	display: block;
+	padding: 9.5px;
+	font-size: 12px;
+	color: #333;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-top: 20px;
+}
+
+.sideBar strong {
+	font-size: 15px;
+	padding-left: 10px;
+}
+
+.table-bordered {
+	border-radius: 4px;
+}
+
+.btn-primary {
+	margin-top:10px;
+}
