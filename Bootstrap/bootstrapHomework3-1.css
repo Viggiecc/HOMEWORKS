@@ -1,0 +1,17 @@
+header p {
+	font: bold 28px/28px Arial, Helvetica, sans-serif;
+	text-align: center;
+	margin-top: 20px;
+}
+
+footer {
+	font: bold 13px/13px Arial, Helvetica, sans-serif;
+	height: 30px;
+	background-color: #000000;
+	clear: both;
+	color: #ffffff;
+	text-align: center;
+	padding-top:12px;
+	position: relative;
+	top: 190px;
+}
