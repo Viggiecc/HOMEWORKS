@@ -162,20 +162,31 @@
 	}
 
 	function randomNum(num) {
-		var curNum = Math.floor(Math.random()*num + 1);
-		var obj = {};
-		var random = [];
-		var count = 0;
-		for (var i = 0; i < num; i++) {
-			while (obj[curNum]) {
-				curNum = Math.floor(Math.random()*num + 1);
-				count++;
-			}
-			obj[curNum] = 1;
-			random[i] = curNum;
+		// var curNum = Math.floor(Math.random()*num + 1);
+		// var obj = {};
+		// var random = [];
+		// var count = 0;
+		// for (var i = 0; i < num; i++) {
+		// 	while (obj[curNum]) {
+		// 		curNum = Math.floor(Math.random()*num + 1);
+		// 		count++;
+		// 	}
+		// 	obj[curNum] = 1;
+		// 	random[i] = curNum;
+		// }
+		// console.log(count);
+		// return random;
+		var orderedArray = orderedNum(num);
+		count = 0;
+		for (var i = orderedArray.length -1; i >= 0; i--) {
+			randomIndex = Math.floor(Math.random()*i);
+			curNum = orderedArray[i];
+			orderedArray[i] = orderedArray[randomIndex];
+			orderedArray[randomIndex] = curNum;
+			count++;
 		}
-		console.log(count);
-		return random;
+		console.log(orderedArray); 
+		return orderedArray;
 	}
 
 	function printOrderedLine (arr, line, str ) {
@@ -231,7 +242,6 @@
 		}
 		return str;
 	}
-
 	deckOfCard();
 	shuffleCardOne();
 	shuffleCardTwo();
