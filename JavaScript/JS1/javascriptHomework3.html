@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charSet="utf-8">
+	<title>JavaScript Homework3</title>
+	<link rel="stylesheet" type="text/css" href="./javascriptHomework3.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<br>
+		<div class="well">
+			<p id="spade-1"></p>
+			<p id="heart-1"></p>
+			<p id="diamond-1"></p>
+			<p id="club-1"></p>
+		</div>
+		<br>
+
+		<button type="button" class="btn btn-warning" onclick="shuffleCardOne()">Shuffle the card (One)</button>
+		<br>
+		<br>
+		<div class="well">
+			<p id="spade-2"></p>
+			<p id="heart-2"></p>
+			<p id="diamond-2"></p>
+			<p id="club-2"></p>
+		</div>
+		<br>
+		<button type="button" class="btn btn-success" onclick="shuffleCardTwo()">Shuffle the card (Two)</button>
+		<br>
+		<br>
+		<div class="well">
+			<p id="spade-3"></p>
+			<p id="heart-3"></p>
+			<p id="diamond-3"></p>
+			<p id="club-3"></p>
+		</div>
+	</div>
+</div>
+<script>
+	
+	function deckOfCard() {
+		const spade = " of Spades";
+		const heart = " of Hearts";
+		const diamond = " of Diamonds";
+		const club = " of Clubs";
+
+		var lineOne = "";
+		var lineTwo = "";
+		var lineThree = "";
+		var lineFour = "";
+
+		spadeNum = orderedNum(13);
+		heartNum = orderedNum(13);
+		diamondNum = orderedNum(13);
+		clubNum = orderedNum(13);
+
+		lineOne = printOrderedLine(spadeNum, lineOne, spade);
+		lineTwo = printOrderedLine(heartNum, lineTwo, heart);
+		lineThree = printOrderedLine(diamondNum, lineThree, diamond);
+		lineFour = printOrderedLine(clubNum, lineFour, club);
+
+		// for (var i = 0; i < 4; i++) {
+			
+		// 	for (var j = 1; j <= 13; j++) {
+		// 		if (i == 0) {
+		// 			if (j < 13) {
+		// 				spade += j + " of Spades, ";
+		// 			} else {
+		// 				spade += j + " of Spades.";
+		// 			}					
+		// 		} else if (i == 1) {
+		// 			if (j < 13) {
+		// 				heart += j + " of Hearts, ";
+		// 			} else {
+		// 				heart += j + " of Hearts.";
+		// 			}
+					
+		// 		} else if (i == 2) {
+		// 			if (j < 13) {
+		// 				diamond += j + " of Diamonds, ";
+		// 			} else {
+		// 				diamond += j + " of Diamonds.";
+		// 			}	
+		// 		} else {
+		// 			if (j < 13) {
+		// 				club += j + " of Clubs, ";
+		// 			} else {
+		// 				club += j + " of Clubs.";
+		// 			}
+		// 		}
+		// 	}
+		document.getElementById("spade-1").innerHTML = lineOne;
+		document.getElementById("heart-1").innerHTML = lineTwo;
+		document.getElementById("diamond-1").innerHTML = lineThree;
+		document.getElementById("club-1").innerHTML = lineFour;
+		
+	}
+
+	function shuffleCardOne() {
+		const spade = "Spades - ";
+		const heart = "Hearts -";
+		const diamond = "Diamonds -";
+		const club = "Clubs - ";
+		var lineOne = "";
+		var lineTwo = "";
+		var lineThree = "";
+		var lineFour = "";
+
+		spadeCounter = randomNum(13);
+		heartCounter = randomNum(13);
+		diamondCounter = randomNum(13);
+		clubCounter = randomNum(13);
+
+		lineOne = printSeperateLine(spadeCounter, lineOne, spade);
+		lineTwo = printSeperateLine(heartCounter, lineTwo, heart);
+		lineThree = printSeperateLine(diamondCounter, lineThree, diamond);
+		lineFour = printSeperateLine(clubCounter, lineFour, club);
+
+		document.getElementById("spade-2").innerHTML = lineOne;
+		document.getElementById("heart-2").innerHTML = lineTwo;
+		document.getElementById("diamond-2").innerHTML = lineThree;
+		document.getElementById("club-2").innerHTML = lineFour;
+				
+	}
+
+	function shuffleCardTwo() {
+		var lineOne = "";
+		var lineTwo = "";
+		var lineThree = "";
+		var lineFour = "";
+
+		var random = randomNum(52);
+		
+		lineOne = printMixLine(random.slice(0, 13), lineOne);	
+		lineTwo = printMixLine(random.slice(13, 26), lineTwo);
+		lineThree = printMixLine(random.slice(26, 39), lineThree);
+		lineFour = printMixLine(random.slice(39, 52), lineFour);
+
+		document.getElementById("spade-3").innerHTML = lineOne;
+		document.getElementById("heart-3").innerHTML = lineTwo;
+		document.getElementById("diamond-3").innerHTML = lineThree;
+		document.getElementById("club-3").innerHTML = lineFour;
+	}
+
+	function orderedNum(num) {
+		var arr = [];
+		for (var i = 0; i < num; i++) {
+			arr[i] = i + 1;
+		}
+		return arr;
+	}
+
+	function randomNum(num) {
+		var curNum = Math.floor(Math.random()*num + 1);
+		var obj = {};
+		var random = [];
+		var count = 0;
+		for (var i = 0; i < num; i++) {
+			while (obj[curNum]) {
+				curNum = Math.floor(Math.random()*num + 1);
+				count++;
+			}
+			obj[curNum] = 1;
+			random[i] = curNum;
+		}
+		console.log(count);
+		return random;
+	}
+
+	function printOrderedLine (arr, line, str ) {
+		for (var i = 0; i < 13; i++) {
+			if (i < 12) {
+				line += arr[i] + str + ", ";
+			} else {
+				line += arr[i] + str + ".";
+			}
+		}
+		return line;
+	}
+
+	function printSeperateLine(arr, line, str ) {
+		for (var i = 0; i < 13; i++) {
+			if (i < 12) {
+				line +=str + arr[i] + ", ";
+			} else {
+				line += str + arr[i] +".";
+			}
+		}
+		return line;
+	}
+
+	function printMixLine(arr, str) {
+		for (var i = 0; i < 13; i++) {
+			if (arr[i] <= 13 ) {
+					if (arr[i] % 13 != 0) {
+						str += "Spades - " + arr[i] % 13 + ", ";
+					} else {
+						str += "Spades - 13, ";
+					}				
+				} else if (arr[i] <= 26) {
+					if (arr[i] % 13 != 0) {
+						str += "Hearts - " + arr[i] % 13 + ", ";
+					} else {
+						str += "Hearts - 13, ";
+					}
+				} else if (arr[i] <= 39) {
+					if (arr[i] % 13 != 0) {
+						str += "Diamonds - " + arr[i] % 13 + ", ";
+					} else {
+						str += "Diamonds - 13, ";
+					}
+				} else {
+					if (arr[i] % 13 != 0) {
+						str += "Clubs - " + arr[i] % 13 + ", ";
+					} else {
+						str += "Clubs - 13, ";
+					}
+			
+				}
+		}
+		return str;
+	}
+
+	deckOfCard();
+	shuffleCardOne();
+	shuffleCardTwo();
+</script>
+</body>
+</html>
