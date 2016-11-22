@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Javascript Homework6</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="form-group">
+			    <label for="usr">Given Number:</label>
+			    <input type="text" class="form-control" onchange="showTheResult()" value="" id="number">
+		    </div>				
+	    	<p class="well" id="steps"></p>
+		</div>
+		
+	</div>
+	<script>
+		function countStep(num) {
+			if (num == 2) {
+				return 1;
+			}
+			if (num % 2 == 0) {
+				return countStep(num/2) + 1;
+			} else {
+				return countStep(num * 3 + 1) + 1;
+			}
+		}
+
+		function showTheResult() {
+			var number = document.getElementById("number").value;
+			document.getElementById("steps").innerHTML = countStep(number);
+		}		
+
+	</script>
+</body>
+</html>

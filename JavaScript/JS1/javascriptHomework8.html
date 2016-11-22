@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>JavaScript HW 8</title>
+</head>
+<body>
+	<script>
+		//create the Shape constructor
+		function Shape() {
+		}
+
+		//add method getType to Shape.prototype
+		// Shape.prototype.getType = function() {
+		// 	return this.type;
+		// };
+
+		Shape.prototype = {
+			constructor: Shape,
+			type: 'shape',
+			getType: function() {
+				return this.type;
+			}
+		}
+
+		//Define the triangle constructor
+		function Triangle(a, b, c) {
+			//initialize triangle-specific properties
+			this.a = a;
+			this.b = b;
+			this.c = c;
+		}
+		
+		// Triangle.prototype = Object.create(Shape.prototype);
+		Triangle.prototype = new Shape();
+
+		Triangle.prototype.type = 'triangle';
+		// Set the "constructor" property to refer to Triangle
+		Triangle.prototype.constructor = Triangle;
+		//Add a getPerimeter method 
+		Triangle.prototype.getPerimeter = function() {
+			return this.a + this.b + this.c;
+		}
+
+		var t = new Triangle(1, 2, 3);
+		alert("t.constructor === Triangle: " + (t.constructor === Triangle));
+		console.log(t.constructor === Triangle);
+		alert("Shape.prototype.isPrototypeOf(t): " + Shape.prototype.isPrototypeOf(t));
+		console.log(Shape.prototype.isPrototypeOf(t));
+		alert("t.getPerimeter: " + t.getPerimeter());
+		console.log(t.getPerimeter());
+		alert("t.getType: " + t.getType());
+		console.log(t.getType());
+
+		Array.prototype.shuffle = function() {
+			for (var i = this.length -1 ; i >= 0; i--) {
+				randomIndex = Math.floor(Math.random()*i);
+				var temp = this[i];
+				this[i] = this[randomIndex];
+				this[randomIndex] = temp;
+			}
+			return this;
+		}
+
+		console.log([1, 2, 3, 4, 5, 6, 7, 8, 9].shuffle());
+ 
+
+		// function Person(name, age, job){
+		//     this.name = name;
+		//     this.age = age;
+		//     this.job = job;
+		//     this.friends = ["Shelby", "Court"];
+		// }
+
+		// Person.prototype = {
+		//     constructor: Person,
+		//     sayName : function () {
+		//         alert(this.prototype.constructor);
+		//     }
+		// };
+
+		// var person1.prototype = new Person();
+		// var person2 = new Person("Greg", 27, "Doctor");
+		// person1.friends.push("Van");
+		// alert(person1.friends); //”Shelby,Court,Van”
+		// alert(person2.friends); //”Shelby,Court”
+		// alert(person1.friends === person2.friends); //false
+		// alert(person1.sayName === person2.sayName); //true
+		// console.log(person1.sayName());
+		// console.log(person2.sayName());
+		// alert(person1.sayName());
+		// alert(person2.sayName());
+
+
+	</script>
+</body>
+</html>

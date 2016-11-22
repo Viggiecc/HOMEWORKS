@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Quiz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./quiz.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="form-group">
+			    <label for="usr">Given Number:</label>
+			    <input type="text" class="form-control" value="" id="number">
+		    </div>	
+		</div>
+		<div class="row">
+			<button type="button" class="btn btn-success" onclick="draw2dMatrix()">Draw a 2d Matrix</button>
+			<br>
+			<br>
+			<div class="col-md-12 well"> 
+				<p id="matrix"></p>
+			</div>
+		</div>
+	</div>
+	<script>
+		
+
+		function draw2dMatrix() {
+			var n = document.getElementById("number").value;
+			if (n == 0 || n == null) {
+				return null;
+			}
+			var Matrix = []; 
+
+			for (var i = 0; i < n; i++) {
+				var line = [];
+				for (var j = 0; j < n; j++) {
+					line[j] = 0;
+				}
+				Matrix[i] = line;
+			}
+			var row = 0;
+			var col = 0;
+			var num = 1;
+
+			while (n > 0) {
+				if (n == 1) {
+					Matrix[row][col] = num;					
+				}
+				var line = [];
+
+				for (var i = 0; i < n - 1; i++) {
+					Matrix[row][col + i] = num++;
+				}
+
+				for (var i = 0; i < n - 1; i++) {
+					Matrix[row + i][col + n - 1] = num++;
+				}
+
+				for (var i = 0; i < n - 1; i++) {
+					Matrix[row + n - 1][col + n - 1 - i] = num++;
+				}
+
+				for (var i = 0; i < n - 1; i++) {
+					Matrix[row + n - 1 -i][col] = num++;
+				}
+				row++;
+				col++;
+				n = n - 2;
+			}
+			var result = "[";
+			var n = document.getElementById("number").value;
+			for (var i = 0; i < n; i++) {
+				result += '<br>' + "    [";
+				for (var j = 0; j < n; j++) {
+					if (j == n - 1) {
+						result +=  " " + Matrix[i][j];
+					} else {
+						result += " " + Matrix[i][j] + ", ";
+					}
+
+				}
+				result +=" ]";
+			}
+			result += '<br>' + "]";
+			document.getElementById("matrix").innerHTML = result;
+		}
+		
+	</script>
+</body>
+</html>	

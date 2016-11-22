@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Javascript Homework7</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="./coordinates.json"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="well col-md-12" >
+				<p>Original Coordinates:</p>
+				<p id="origin"></p>
+				<p>Initial coordinate: [6,33] </p>
+			</div>
+			<div class="col-md-8">
+				<button type="button" class="btn btn-warning" style="margin-bottom: 20px" onclick="sortArray()">Order The Coordinates</button>
+				<br>
+			</div>
+			
+			<div class="well col-md-12" >
+				<p>Ordered Coordinates:</p>
+				<p id="result"></p>
+				<p>Calulate Distance:</p>
+				<p id="finalDistance"></p>
+			</div>
+		</div>
+	</div>
+	<script>
+		
+		var coordinates = JSON.parse(coordinates);
+		console.log(coordinates);
+		var values = [];
+		for (var i = 0; i < coordinates.length; i++) {
+			values[i] = (coordinates[i].value).split(",");
+		}
+		var origin = [6,33];
+
+		var originValue = "";
+		for (var i = 0; i < coordinates.length; i++) {
+			originValue += "[" + values[i] + "] ";
+		}
+		document.getElementById("origin").innerHTML = originValue;
+
+		function sortArray() {	
+			quickSort(values, 0, values.length - 1, origin);
+			var orderedValue = ""
+			for (var i = 0; i < coordinates.length; i++) {
+				orderedValue += "[" + values[i] + "] ";
+				finalDistance += distance(values[i],origin) + ", ";
+			}
+			document.getElementById("result").innerHTML = orderedValue;
+			document.getElementById("finalDistance").innerHTML = finalDistance;
+		}
+
+		function distance (arr1, arr2) {
+			return Math.pow(Math.abs(arr1[0] - arr2[0]), 2) + Math.pow(Math.abs(arr1[1] - arr2[1]), 2);
+		}
+
+		function quickSort (values, start, end, origin) {
+			if (start >= end) {
+				return;
+			}
+			var pivot = distance(values[Math.floor((start+end)/2)],origin);
+			// var pivot = Math.abs(arr[Math.floor((start + end)/2)] - target);
+			var left = start; 
+			var right = end;
+			while (left <= right) {
+	
+				while (left <= right && distance(values[left],origin) < pivot) {
+					left++;
+				}
+				while (left <= right && distance(values[right],origin) > pivot) {
+					right--;
+				}
+				if (left <= right) {
+					var temp = values[left];
+					values[left] = values[right];
+					values[right] = temp;
+					left++;
+					right--;
+				}
+
+			}
+			quickSort(values, start, right, origin);
+			quickSort(values, left, end, origin);
+		}
+
+	</script>
+	
+</body>
+</html>

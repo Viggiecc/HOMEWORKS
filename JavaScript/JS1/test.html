@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test</title>
+</head>
+<body>
+	<script>
+		function shape(type, a, b, c) {
+			this.type = type;
+			this.a = a;
+			this.b = b;
+			this.c = c;
+			this.getType() = function() {
+				return this.type;
+			}
+			this.getPerimeter = function() {
+				this.perimeter = this.a + this.b + this.c;
+				return this.perimeter; 
+			}
+		}
+
+		shape.prototype = {
+			constructor: shape
+		}
+
+		Triangle.prototype = new shape(triangle, 1 , 2, 3);
+	</script>
+</body>
+</html>

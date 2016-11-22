@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Javascript Homework4</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="well col-md-12">
+				<p> Pick from these coins: <p>
+				<p>[1, 5, 10, 25, 50]</p>
+				<p> Just Use: <p>
+				<p> 48 coins</p>
+				<p> To get: <p>
+				<p>1 dollar = 100 cents</p>
+			</div>	
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<button type="button" class="btn btn-warning" onclick="getAllSolutions()">Get All Solutions</button>
+			</div>
+			<br>
+			<br>			
+			<div class="well col-md-12" id="result"> 
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+
+		
+		function getAllSolutions() {
+			var solution = [];
+			var coins =  [1, 5, 25, 50];
+			var targetValue = 100;
+			var count = 48;
+			getSolutions(solution, coins, 0, targetValue, count);
+			
+		}
+
+		function getSolutions(solution, coins, index, targetValue, count) {
+			if (targetValue == 0) {
+				// result.push(new Array(solution));
+				var countOne = 0;
+				var countFive = 0;
+				var countTen = 0;
+				var countQuater = 0;
+				var countFifty = 0;
+				if (solution.length == count) {
+					for (var i = 0; i < solution.length; i++) {
+						if (solution[i] == 1) {
+							countOne++;
+						} else if (solution[i] == 5) {
+							countFive++;
+						} else if (solution[i] == 25) {
+							countQuater++;
+						} else {
+							countFifty++;
+						}
+					}
+					var countSolution = [];
+					countSolution.push(countOne);
+					countSolution.push(countFive);
+					// countSolution.push(countTen);
+					countSolution.push(countQuater);
+					countSolution.push(countFifty);
+					console.log(countSolution);
+					console.log(solution);
+					document.getElementById("result").innerHTML += "[ " + countSolution + " ]" + "<br>";
+				}
+				return;
+			}
+
+
+			for (var i = index; i < coins.length; i++) {
+	            if (coins[i] > targetValue) {
+	                break;
+	            }
+
+	            solution.push(coins[i]);
+	            getSolutions(solution, coins, i, targetValue - coins[i], count);
+	            solution.splice(solution.length -1, 1);
+
+        	} 
+		}
+
+		// var results = getAllSolutions();
+
+		// console.log(results);
+	</script>
+
+</body>
+</html>
