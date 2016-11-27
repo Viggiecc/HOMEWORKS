@@ -5,7 +5,47 @@
 	<title>Test</title>
 </head>
 <body>
+	<style>
+		.blackSquare {
+			width: 30px;
+			height: 30px;
+			background-color: black;
+			border: 1px solid black;
+			display:inline-block;
+			margin-top: 0;
+		}
+
+		.whiteSquare {
+			width: 30px;
+			height: 30px;
+			background-color: white;
+			border: 1px solid black;
+			display:inline-block;
+		}
+	</style>
+	<div id="chessboard"><div></div>
 	<script>
+
+		function drawChessBoard() {
+			var row = 8;
+			var col = 8;
+
+			for (var i = 0; i < row; i++) {
+				for (var j = 0; j < col; j++) {
+					if ((i + j) % 2 == 0) {
+						var whiteDiv = document.createElement("DIV");
+						whiteDiv.className = 'whiteSquare';
+						document.getElementById('chessboard').appendChild(whiteDiv);
+					} else {
+						var blackDiv = document.createElement("DIV");
+						blackDiv.className = 'blackSquare';
+						document.getElementById('chessboard').appendChild(blackDiv);
+					}
+				}
+				document.write('<br>');
+			}
+		}
+		drawChessBoard();
 		function shape(type, a, b, c) {
 			this.type = type;
 			this.a = a;

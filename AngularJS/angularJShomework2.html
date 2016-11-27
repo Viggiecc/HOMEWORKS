@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS homework 2</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Latest compiled AngularJS-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+</head>
+<body ng-app="todoApp" ng-controller="todoCtrl">
+	<br><br><br>
+	<div class="container">
+		<div class="row">
+			<div class="well col-md-offset-2 col-md-8 col-md-offset-2">
+				<h1>Todos - AngularJS</h1>
+			<div>
+			<div id="todoListInput" class="form-group">
+			  <input ng-model="todoList" ng-keyup="addTodoList()" type="text" class="form-control" placeholder="Type a todo and Hit Enter">
+			</div>
+			<div class="remainingBar">
+				<div class="well">
+					<span style="font-weight: bold">{{getCount()}}</span> Remaining
+					<button ng-click="getAllBack()" type="button" class="btn btn-info" style="float: right; ">Clear Completed Todos</button>
+				</div>
+				<div>
+					<div ng-show="isToShow()" class="well" >
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="hasAllDone">{{"Mark All Done" | uppercase}}</label>
+						</div>
+						<div ng-repeat="todo in todoLists | orderBy: 'list'">
+							<div ng-hide="todo.hasDone" class="panel panel-default">
+						    	<div class="panel-body checkbox ">
+									<label><input type="checkbox" ng-model="todo.hasDone">{{todo.list}}</label>
+								</div>
+						  	</div>
+					  	</div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	var app = angular.module('todoApp', []);
+	app.controller('todoCtrl', function($scope) {
+
+	    $scope.todoLists = [];
+	    $scope.hasDone = false;
+	    
+	    $scope.addTodoList = function() {
+	    	
+	    	if(event.keyCode == 13 && $scope.todoList) { 	
+	    		if ($scope.hasAllDone) {
+	    			$scope.hasAllDone = false;
+	    		}	
+	    		$scope.todoLists.push({list: $scope.todoList, hasDone: false});
+	    		$scope.todoCount++;
+	    		$scope.todoList = '';
+		    }   	
+	    };
+
+	    $scope.isToShow = function() {
+	    	return $scope.todoCount > 0;
+	    }
+
+	    $scope.getCount = function() {
+	    	$scope.todoCount = 0 
+
+	    	for(var i = 0; i < $scope.todoLists.length; i++) {
+	    		if (!$scope.todoLists[i].hasDone) {
+	    			$scope.todoCount += 1;
+	    		} 		
+	    	}
+	    	if ($scope.hasAllDone) {
+	    		$scope.todoCount = 0;
+	    	}
+	    	return $scope.todoCount;
+	    }
+
+	    $scope.getAllBack = function() {
+	    	$scope.todoCount = $scope.todoLists.length;
+	    	$scope.hasAllDone = false;
+	    	for(var i = 0; i < $scope.todoLists.length; i++) {
+	    		if ($scope.todoLists[i].hasDone) {
+	    			$scope.todoLists[i].hasDone = false;
+	    		}		
+	    	}
+	    }
+	});
+	</script>
+	
+</body>
+</html>
