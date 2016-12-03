@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS homework 6</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./myUsers.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Latest compiled AngularJS-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="userCtrl">
+
+<div class="container">
+  <div class="row">
+    <h3>Users</h3>
+    <div class="form-group">
+      <label>Search:</label>
+      <div>
+        <input id="searchBar" class="form-control " type="text" ng-model="myFilter" placeholder="Search here">
+      </div> 
+    </div> 
+    <br>
+    <br>
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Edit</th>
+        <th ng-click="orderByParemeter('id')">ID</th>
+        <th ng-click="orderByParemeter('fName')">First Name</th>
+        <th ng-click="orderByParemeter('lName')">Last Name</th>
+        <th ng-click="orderByParemeter('title')">Title</th>
+        <th ng-click="orderByParemeter('sex')">Sex</th>
+        <th ng-click="orderByParemeter('age')">Age</th>
+        <th>Delete</th>
+      </tr>
+      <tr ng-repeat="user in usersList | orderBy: myOrderBy | filter: myFilter">
+        <td><button class="btn btn-default" ng-click="editUser(user.id)">&#9998; Edit</button></td>
+        <td>{{ user.id}}</td>
+        <td>{{ user.fName }}</td>
+        <td>{{ user.lName }}</td>
+        <td>{{ user.title }}</td>
+        <td>{{ user.sex }}</td>
+        <td>{{ user.age }}</td>
+        <td><button class="btn btn-danger" ng-click="deleteUser(user.id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button></td>
+      </tr>
+    </table>
+    <br>
+   
+    <!-- <button class="btn btn-success" ng-click="getMyFilter()">Filter Users</button> -->
+
+    <button class="btn btn-info" ng-click="editUser('new')">&#9998; Create New User</button>
+
+    <form ng-hide="hideform">
+      <h3 ng-show="edit">Create New User:</h3>
+      <h3 ng-hide="edit">Edit User:</h3>
+      <div class="form-group">
+        <label>First Name:</label>
+        <input class="form-control" type="text" ng-model="newfName" ng-disabled="!edit" placeholder="First Name">
+      <br>
+        <label>Last Name:</label>
+        <input class="form-control" type="text" ng-model="newlName" ng-disabled="!edit" placeholder="Last Name">
+      <br>
+        <label>Title:</label>
+        <input class="form-control" type="text" ng-model="newTitle" ng-disabled="!edit" placeholder="Title">
+      <br>
+        <label>Sex:</label>
+        <input class="form-control" type="text" ng-model="newSex" ng-disabled="!edit" placeholder="Sex">
+      <br>
+        <label>Age:</label>
+        <input class="form-control" type="text" ng-model="newAge" ng-disabled="!edit" placeholder="Age">
+      <br>
+        <label>Password:</label>
+        <input class="form-control" type="password" ng-model="newpassw1" placeholder="Password">
+      <br>
+        <label>Repeat:</label>
+        <input class="form-control" type="password" ng-model="newpassw2" placeholder="Repeat Password">
+      <br>
+      </div>
+      <button class="btn btn-warning" ng-disabled="error || incomplete" ng-click="saveUser()">&#10004; Save Changes</button>
+    </form>
+  </div>
+  <div class="row" >  
+    <ul class="pagination">
+      <li ng-click="showPage(currentPage - 1)" ng-class="{disabled:currentPage === 1}"><a href="#">&laquo;</a></li>
+      <li ng-repeat="num in pages" ng-click="showPage(num)" ng-class="{active: currentPage === num}"><a href="#">{{num}}</a></li>
+      <li ng-click="showPage(currentPage + 1)" ng-class="{disabled:currentPage === totalPages}"><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script src= "myUsers.js"></script>
+
+</body>
+</html>
