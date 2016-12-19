@@ -1,0 +1,16 @@
+{
+  "name": "draw-2d-matrix",
+  "version": "1.0.3",
+  "description": "Step 3 send the query to frontend js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Wenjing Zhang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NodeJS homework 4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Latest compiled AngularJS-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+  <!-- <script src= "myControllers.js"></script> -->
+  <script src="myControllers.js"></script>
+
+</head>
+
+<body ng-app="myApp">
+
+<div class="container">
+  <div class="row">
+    <h3><a href="#/">Users</a></h3>
+    <a class="btn btn-info" href="#/newUser">&#9998;Create New User</a>
+    <br><br>
+    <div class="well" ng-view></div>
+  </div>
+</div>
+
+
+<!-- for test, something wrong with ng-view  -->
+<!-- <div ng-app="myApp" ng-controller="userCtrl" class="container">
+  <div class="row">
+    <h3><a href="#/" ng-click="clickUsers()">Users</a></h3>
+    <a class="btn btn-info" href="#/newUser" ng-click="click()">&#9998;Create New User</a>
+    <br><br>
+    <div class="well">
+      <div>
+        <div class="form-group">
+        <label>Search:</label>
+        <div>
+          <input id="searchBar" class="form-control " type="text" ng-model="myFilter" placeholder="Search here">
+        </div> 
+        </div>
+        <table class="table table-bordered table-striped">
+        <tr>
+          <th>Edit</th>
+          <th ng-click="orderByParemeter('id')">ID</th>
+          <th ng-click="orderByParemeter('fName')">First Name</th>
+          <th ng-click="orderByParemeter('lName')">Last Name</th>
+          <th ng-click="orderByParemeter('title')">Title</th>
+          <th ng-click="orderByParemeter('sex')">Sex</th>
+          <th ng-click="orderByParemeter('age')">Age</th>
+          <th>Delete</th>
+        </tr>
+        <tr ng-repeat="user in usersList | orderBy: myOrderBy | filter: myFilter">
+          <td><a class="btn btn-default" ng-click="showChoosenUser(user.id)" href="#/editUser/{{user.id}}">&#9998; Edit</a></td>
+          <td>{{ user.id}}</td>
+          <td>{{ user.fName }}</td>
+          <td>{{ user.lName }}</td>
+          <td>{{ user.title }}</td>
+          <td>{{ user.sex }}</td>
+          <td>{{ user.age }}</td>
+          <td><button class="btn btn-danger" ng-click="deleteUser(user.id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button></td>
+        </tr>
+        <p>{{message}}</p>
+        </table>
+        <div class="row" >  
+          <ul class="pagination">
+            <li ng-click="showPage(currentPage - 1)" ng-class="{disabled:currentPage === 1}"><a href="#">&laquo;</a></li>
+            <li ng-repeat="num in pages" ng-model="num" ng-click="showPage(num)" ng-class="{active: currentPage === num}"><a href="#/{{num}}">{{num}}</a></li>
+            <li ng-click="showPage(currentPage + 1)" ng-class="{disabled:currentPage === totalPages}"><a href="#">&raquo;</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form ng-hide="hideForm">
+      <h3 ng-hide="edit">Create New User:</h3>
+      <h3 ng-show="edit">Edit User:</h3>
+      <div class="form-group">
+        <label>First Name:</label>
+        <input class="form-control" type="text" ng-model="newfName"  placeholder="First Name">
+      <br>
+        <label>Last Name:</label>
+        <input class="form-control" type="text" ng-model="newlName"  placeholder="Last Name">
+      <br>
+        <label>Title:</label>
+        <input class="form-control" type="text" ng-model="newTitle"  placeholder="Title">
+      <br>
+        <label>Sex:</label>
+        <input class="form-control" type="text" ng-model="newSex"  placeholder="Sex">
+      <br>
+        <label>Age:</label>
+        <input class="form-control" type="text" ng-model="newAge" placeholder="Age">
+      <br>
+        <label>Password:</label>
+        <input class="form-control" type="password" ng-model="newpassw1" placeholder="Password">
+      <br>
+        <label>Repeat:</label>
+        <input class="form-control" type="password" ng-model="newpassw2" placeholder="Repeat Password">
+      <br>
+      </div>
+       <a class="btn btn-warning" href="#/" ng-hide="edit" ng-click="createNewUser()">&#10004; Save New User</a>
+       <a class="btn btn-warning" href="#/" ng-show="edit" ng-click="saveEditedUser()">&#10004; Save Changes</a>
+    </form>   
+    <br>
+  </div>
+    
+</div>
+<script src= "userController.js"></script> -->
+
+
+</body>
+</html>

@@ -4,9 +4,21 @@
 	<meta charset="utf-8">
 	<title>Quiz</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./quiz.css">
+<!-- 	<link rel="stylesheet" href="./step2.css">
+ -->	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-			<button type="button" class="btn btn-success" onclick="draw2dMatrix()">Draw a 2d Matrix</button>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		
+		<div class="row">
+			<h3>Draw a 2d Matrix</h3>
 			<br>
 			<br>
 			<div class="col-md-12 well"> 
@@ -16,9 +28,8 @@
 	</div>
 	<script>
 		
-
-		function draw2dMatrix() {
-			var n = document.getElementById("number").value;
+		function draw2dMatrix(n) {
+			var originN = n;
 			if (n == 0 || n == null) {
 				return null;
 			}
@@ -59,11 +70,10 @@
 				col++;
 				n = n - 2;
 			}
-			var result = "[";
-			var n = document.getElementById("number").value;
-			for (var i = 0; i < n; i++) {
+			var result = "";
+			for (var i = 0; i < originN; i++) {
 				result += '<br>' + "    [";
-				for (var j = 0; j < n; j++) {
+				for (var j = 0; j < originN; j++) {
 					if (j == n - 1) {
 						result +=  " " + Matrix[i][j];
 					} else {
@@ -73,10 +83,9 @@
 				}
 				result +=" ]";
 			}
-			result += '<br>' + "]";
 			document.getElementById("matrix").innerHTML = result;
 		}
-		
+		draw2dMatrix(3);
 	</script>
 </body>
 </html>	

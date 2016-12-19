@@ -1,65 +1,60 @@
 
-var app = angular.module('myApp', ["ngRoute", "myService"]);
+var app = angular.module('myApp', ["ngRoute"]);
 
-app.config(function($routeProvider) {
+app.config(['$routeProvider',function($routeProvider) {
   $routeProvider
-  .when("/:num", {
-    templateUrl: "main.html",
+  .when("/", {
+    templateUrl: "list.html",
     controller: "mainCtrl"
   })
   .when("/newUser", {
-    templateUrl: "createNewUser.html",
+    templateUrl: "create.html",
     controller: "newUserCtrl"
   })
-  .when("/editUser:param", {
-    templateUrl: "editUser.html",
+  .when("/:num", {
+    templateUrl: "list.html",
+    controller: "mainCtrl"
+  })
+  .when("/editUser/:param", {
+    templateUrl: "edit.html",
     controller: "editUserCtrl"
   });
+}]);
+
+app.factory('userService', function($http) {
+  var userServ = {};
+  userServ.getUsers = function() {
+    return $http.get('http://localhost:3000/users');
+  };
+
+  return userServ; 
 });
 
-app.controller('mainCtrl', function($scope, myUserService) { 
-  $scope.users = myUserService.users;
+app.controller('mainCtrl', function($scope, $http, userService, $routeParams) {
+  console.log("start");
+  // $scope.users = userService.users;
+  $scope.users = [];
 
-  $scope.edit = true;
-  $scope.error = false;
-  $scope.incomplete = false; 
+  var getUsersFromServer = function() {
+    userService.getUsers()
+      .then(function mySuccess(response) {
+        $scope.users = response.data;
+        $scope.showPage($scope.currentPage);
+      }, function myError(response){
+        $scope.message = response.statusText;
+      });
+  };
+
+  getUsersFromServer();
+  // console.log("current users: " + $scope.users);
   $scope.currentPage = 1;
   $scope.numPerPage = 3;
-  $scope.usersList = $scope.users.slice(0, $scope.numPerPage);
-  
-  // $scope.usersList;
-  $scope.pages = [1, 2, 3];
-  $scope.totalPages = Math.ceil($scope.users.length / $scope.numPerPage);
-
-  $scope.orderByParemeter = function(p) {
-    $scope.myOrderBy = p;
-  }
-
-  $scope.deleteUser = function(id) {
-    for (var i = 0; i < $scope.users.length; i++) {
-      if ($scope.users[i].id == id) {
-        $scope.users.splice(i, 1);
-      }
-    }
-
-    if ($scope.users.length == 0) {
-      $scope.usersList = [];
-    } 
-    if ($scope.currentPage == $scope.totalPages) {
-      $scope.showPage($scope.totalPages);
-      $scope.currentPage--;
-    } else {
-      $scope.showPage($scope.currentPage);
-    }
-  }
-
   $scope.showPage = function(num) {
     // $scope.groupedUser = $scope.users.slice(0, $scope.numPerPage);
-    console.log("I am here" + num);
-    $scope.curPage= $scope.getPage($scope.users.length, num);
+    // var num = $routeParams.param;
+    $scope.curPage= $scope.getPage($scope.users.length, num, $scope.numPerPage);
     // get current page of items
     $scope.usersList = $scope.users.slice($scope.curPage.startIndex, $scope.curPage.endIndex + 1);
-    console.log($scope.usersList);  
   }
 
   $scope.getPage = function(usersSize, currentPage, numPerPage) {
@@ -71,7 +66,7 @@ app.controller('mainCtrl', function($scope, myUserService) {
  
         // calculate total pages
         $scope.totalPages = Math.ceil(usersSize / $scope.numPerPage);
- 
+        
         var startPage, endPage;
         if ($scope.totalPages <= 3) {
             // less than 3 total pages so show all
@@ -113,31 +108,72 @@ app.controller('mainCtrl', function($scope, myUserService) {
             endIndex: endIndex,
             pages: $scope.pages
         };
+  }
+
+  
+  $scope.orderByParemeter = function(p) {
+    $scope.myOrderBy = p;
+  }
+
+  $scope.deleteUser = function(id) {
+    for (var i = 0; i < $scope.users.length; i++) {
+      console.log(id);
+      if ($scope.users[i].id == id) {
+        $scope.users.splice(i, 1);
+        console.log($scope.users);
+      }
     }
+
+    if ($scope.users.length == 0) {
+      $scope.usersList = [];
+    } 
+    if ($scope.currentPage == $scope.totalPages) {
+      $scope.showPage($scope.totalPages);
+      $scope.currentPage--;
+    } else {
+      $scope.showPage($scope.currentPage);
+    }
+  };
 
 });
 
-app.controller('newUserCtrl', function($scope, myUserService) {
-  
-  $scope.users = myUserService.users;
+app.controller('newUserCtrl', function($scope, userService) {
+  // $scope.users = userService.users;
+  var getUsersFromServer = function() {
+    userService.getUsers()
+      .then(function mySuccess(response) {
+        $scope.users = response.data;
+      }, function myError(response){
+        $scope.message = response.statusText;
+      })
+  };
+
+  getUsersFromServer();
+  $scope.error = false;
+  $scope.incomplete = true;
+  var curSize = $scope.users.length;
+
   $scope.saveUser = function() {
-    var curSize = $scope.users.length;
     
-    // $scope.users.splice(curSize, 0, {});
+    $scope.users.splice(curSize, 0, {});
     $scope.users[curSize].id = curSize+1;
     $scope.users[curSize].fName = $scope.newfName;
     $scope.users[curSize].lName = $scope.newlName;
     $scope.users[curSize].title = $scope.newTitle;
     $scope.users[curSize].sex = $scope.newSex;
     $scope.users[curSize].age = $scope.newAge;
-    $scope.hideform = true;
-
+    console.log($scope.users);
   }
+
 
   $scope.$watch('newpassw1',function() {$scope.test();});
   $scope.$watch('newpassw2',function() {$scope.test();});
   $scope.$watch('newfName',function() {$scope.test();});
-  $scope.$watch('newlName',function() {$scope.test();});  
+  $scope.$watch('newlName',function() {$scope.test();});
+  $scope.$watch('newTitle',function() {$scope.test();});
+  $scope.$watch('newSex',function() {$scope.test();}); 
+  $scope.$watch('newAge',function() {$scope.test();}); 
+
 
   $scope.test = function() {
   if ($scope.passw1 !== $scope.passw2) {
@@ -154,18 +190,34 @@ app.controller('newUserCtrl', function($scope, myUserService) {
 
 });
 
-app.controller('editUserCtrl', function($scope, myUserService, $routeParams) {
-  $scope.users = myUserService.users;
-  for(var i = 0; i < $scope.users.length; i++) {
-    if ($scope.users[i].id == $routeParams.param) {
-       $scope.newfName = $scope.users[i].fName;
-       $scope.newlName = $scope.users[i].lName; 
-       $scope.newTitle = $scope.users[i].title; 
-       $scope.newSex = $scope.users[i].sex; 
-       $scope.newAge = $scope.users[i].age; 
+app.controller('editUserCtrl', function($scope, userService, $routeParams) {
+  // $scope.users = userService.users;
+  var getUsersFromServer = function() {
+    userService.getUsers()
+      .then(function mySuccess(response) {
+        $scope.users = response.data;
+        showChoosenUser();
+      }, function myError(response){
+        $scope.message = response.statusText;
+      })
+  };
+
+  getUsersFromServer();
+  var showChoosenUser = function() {
+    console.log("i'm here");
+    for(var i = 0; i < $scope.users.length; i++) {
+      if ($scope.users[i].id == $routeParams.param) {
+         $scope.newfName = $scope.users[i].fName;
+          console.log("firstName" + $scope.newfName);
+
+         $scope.newlName = $scope.users[i].lName; 
+         $scope.newTitle = $scope.users[i].title; 
+         $scope.newSex = $scope.users[i].sex; 
+         $scope.newAge = $scope.users[i].age; 
+      }
     }
   }
-
+  
   $scope.saveUser = function() {
     for (var i = 0; i < $scope.users.length; i++) {
       if ($scope.users[i].id == $routeParams.param) {
@@ -179,24 +231,5 @@ app.controller('editUserCtrl', function($scope, myUserService, $routeParams) {
       }
     } 
   }
-
-  $scope.$watch('newpassw1',function() {$scope.test();});
-  $scope.$watch('newpassw2',function() {$scope.test();});
-  $scope.$watch('newfName',function() {$scope.test();});
-  $scope.$watch('newlName',function() {$scope.test();});  
-
-  $scope.test = function() {
-  if ($scope.passw1 !== $scope.passw2) {
-    $scope.error = true;
-    } else {
-    $scope.error = false;
-    }
-    $scope.incomplete = false;
-    if ($scope.edit && (!$scope.newfName.length ||
-    !$scope.newlName.length || !$scope.newpassw1.length || !$scope.newpassw2.length || !$scope.newTitle.length || !$scope.newSex.length || !$scope.newAge.length)) {
-        $scope.incomplete = true;
-    }
-  };
-  console.log($scope.newTitle);
-
+ 
 });

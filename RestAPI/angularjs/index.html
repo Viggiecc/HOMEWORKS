@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src='personController.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container" ng-controller="personCtrl">
+    	<div class="row">
+    		<h1>Person</h1>
+	 		<table class="table table-bordered">
+			 	<tr>
+			 		<th>id</th>
+			 		<th>first name</th>
+			 		<th>last name</th>
+			 	</tr>
+			 	<tr ng-repeat="person in mergedPersons | orderBy : 'id'">
+			 		<td>{{person.id}}</td>
+			 		<td>{{person.firstName}}</td>
+			 		<td>{{person.lastName}}</td>
+			 	</tr>
+	 		</table>
+	 	<p>{{message}}<p>
+    	</div>	 
+	</div>	
+  </body>
+</html>

@@ -1,0 +1,13 @@
+doctype html
+html
+	head
+		title Step 3
+		link(rel='stylesheet', href='/public/bootstrap/css/bootstrap.min.css')
+	body
+		h1 Draw 2d Matrix
+		p= dim
+		div.well
+			#matrix
+		script.
+			var dimension="#{dim}";
+		script(src='/public/javascript/matrix.js')

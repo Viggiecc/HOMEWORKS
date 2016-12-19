@@ -1,0 +1,42 @@
+<!-- <div class="form-group">
+    
+</div>  -->
+<div ng-controller="mainCtrl">
+  <div class="form-group">
+    <label>Search:</label>
+    <div>
+        <input id="searchBar" class="form-control " type="text" ng-model="myFilter" placeholder="Search here">
+    </div> 
+  </div>
+  <br><br>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Edit</th>
+      <th ng-click="orderByParemeter('id')">ID</th>
+      <th ng-click="orderByParemeter('fName')">First Name</th>
+      <th ng-click="orderByParemeter('lName')">Last Name</th>
+      <th ng-click="orderByParemeter('title')">Title</th>
+      <th ng-click="orderByParemeter('sex')">Sex</th>
+      <th ng-click="orderByParemeter('age')">Age</th>
+      <th>Delete</th>
+    </tr>
+    <tr ng-repeat="user in usersList | orderBy: myOrderBy | filter: myFilter">
+      <td><a class="btn btn-default" href="#/editUser/{{user.id}}">&#9998; Edit</a></td>
+      <td>{{ user.id}}</td>
+      <td>{{ user.fName }}</td>
+      <td>{{ user.lName }}</td>
+      <td>{{ user.title }}</td>
+      <td>{{ user.sex }}</td>
+      <td>{{ user.age }}</td>
+      <td><button class="btn btn-danger" ng-click="deleteUser(user.id)"> <span class="glyphicon glyphicon-trash"></span> Delete</button></td>
+    </tr>
+    <p>{{message}}</p>
+  </table>
+  <div class="row" >  
+    <ul class="pagination">
+      <li ng-click="showPage(currentPage - 1)" ng-class="{disabled:currentPage === 1}"><a href="#">&laquo;</a></li>
+      <li ng-repeat="num in pages" ng-model="num" ng-click="showPage(num)" ng-class="{active: currentPage === num}"><a href="#/{{num}}">{{num}}</a></li>
+      <li ng-click="showPage(currentPage + 1)" ng-class="{disabled:currentPage === totalPages}"><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+</div>
