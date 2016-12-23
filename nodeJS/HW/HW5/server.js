@@ -5,7 +5,7 @@ var mysql = require('mysql');
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, 'angularjs')));
+// app.use(express.static(path.join(__dirname, 'angularjs')));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
